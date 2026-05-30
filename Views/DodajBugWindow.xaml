@@ -1,0 +1,92 @@
+<Window x:Class="BugTracker.Views.DodajBugWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Dodaj napako" Height="490" Width="660"
+        WindowStartupLocation="CenterOwner" ResizeMode="NoResize"
+        Background="{StaticResource LightBrush}">
+    <Grid Margin="28">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="16"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="12"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="12"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="12"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Naslov -->
+        <StackPanel Grid.Row="0" Orientation="Horizontal">
+            <Border Width="4" CornerRadius="2" Margin="0,0,10,0"
+                    Background="{StaticResource AccentBrush}"/>
+            <TextBlock Text="Dodaj novo napako" FontSize="18" FontWeight="Bold"
+                       Foreground="{StaticResource PrimaryBrush}"
+                       VerticalAlignment="Center"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="2">
+            <TextBlock Text="Naslov napake *" Style="{StaticResource FieldLabel}"/>
+            <TextBox x:Name="TxtNaslov" Style="{StaticResource InputBox}" MaxLength="200"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="4">
+            <TextBlock Text="Opis napake" Style="{StaticResource FieldLabel}"/>
+            <TextBox x:Name="TxtOpis" Style="{StaticResource InputBox}"
+                     Height="80" TextWrapping="Wrap" AcceptsReturn="True"
+                     VerticalScrollBarVisibility="Auto"/>
+        </StackPanel>
+
+        <Grid Grid.Row="6">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/><ColumnDefinition Width="12"/><ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="0">
+                <TextBlock Text="Prioriteta *" Style="{StaticResource FieldLabel}"/>
+                <ComboBox x:Name="CmbPrio" Style="{StaticResource InputCombo}">
+                    <ComboBoxItem Content="Nizka"/>
+                    <ComboBoxItem Content="Srednja" IsSelected="True"/>
+                    <ComboBoxItem Content="Visoka"/>
+                    <ComboBoxItem Content="Kritična"/>
+                </ComboBox>
+            </StackPanel>
+            <StackPanel Grid.Column="2">
+                <TextBlock Text="Kategorija" Style="{StaticResource FieldLabel}"/>
+                <ComboBox x:Name="CmbKat" Style="{StaticResource InputCombo}"/>
+            </StackPanel>
+        </Grid>
+
+        <Grid Grid.Row="8">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/><ColumnDefinition Width="12"/><ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="0">
+                <TextBlock Text="Dodeli napako" Style="{StaticResource FieldLabel}"/>
+                <ComboBox x:Name="CmbDodeli" Style="{StaticResource InputCombo}"/>
+            </StackPanel>
+            <StackPanel Grid.Column="2">
+                <TextBlock Text="Status" Style="{StaticResource FieldLabel}"/>
+                <ComboBox x:Name="CmbStatus" Style="{StaticResource InputCombo}">
+                    <ComboBoxItem Content="Odprt" IsSelected="True"/>
+                    <ComboBoxItem Content="V delu"/>
+                </ComboBox>
+            </StackPanel>
+        </Grid>
+
+        <Grid Grid.Row="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/><ColumnDefinition Width="12"/>
+                <ColumnDefinition Width="130"/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" Content="Prekliči"
+                    Style="{StaticResource SecondaryButton}"
+                    Padding="0,10" Click="BtnPreklici_Click"/>
+            <Button Grid.Column="2" Content="💾 Shrani napako"
+                    Style="{StaticResource PrimaryButton}"
+                    Padding="0,10" Click="BtnShrani_Click"/>
+        </Grid>
+    </Grid>
+</Window>

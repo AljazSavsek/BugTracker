@@ -1,0 +1,67 @@
+<Window x:Class="BugTracker.Views.RegisterWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="BugTracker – Registracija" Height="550" Width="420"
+        WindowStartupLocation="CenterOwner" ResizeMode="NoResize"
+        Background="{StaticResource LightBrush}">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <Grid>
+            <Border Width="5" HorizontalAlignment="Left"
+                    Background="{StaticResource SuccessBrush}"/>
+            <StackPanel Margin="50,26">
+                <TextBlock Text="Ustvari račun" FontSize="24" FontWeight="Bold"
+                           Foreground="{StaticResource PrimaryBrush}"
+                           HorizontalAlignment="Center"/>
+                <TextBlock Text="Izpolnite vse podatke" FontSize="13"
+                           Foreground="{StaticResource MutedBrush}"
+                           HorizontalAlignment="Center" Margin="0,4,0,22"/>
+
+                <Border x:Name="MsgBorder" Visibility="Collapsed"
+                        CornerRadius="6" Padding="12,8" Margin="0,0,0,14">
+                    <TextBlock x:Name="MsgText" FontSize="13" TextWrapping="Wrap"/>
+                </Border>
+
+                <!-- Ime + Priimek -->
+                <Grid Margin="0,0,0,12">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/><ColumnDefinition Width="10"/><ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0">
+                        <TextBlock Text="Ime *" Style="{StaticResource FieldLabel}"/>
+                        <TextBox x:Name="TxtIme" Style="{StaticResource InputBox}"/>
+                    </StackPanel>
+                    <StackPanel Grid.Column="2">
+                        <TextBlock Text="Priimek *" Style="{StaticResource FieldLabel}"/>
+                        <TextBox x:Name="TxtPriimek" Style="{StaticResource InputBox}"/>
+                    </StackPanel>
+                </Grid>
+
+                <TextBlock Text="E-mail *" Style="{StaticResource FieldLabel}"/>
+                <TextBox x:Name="TxtEmail" Style="{StaticResource InputBox}" Margin="0,0,0,12"/>
+
+                <TextBlock Text="Uporabniško ime *" Style="{StaticResource FieldLabel}"/>
+                <TextBox x:Name="TxtUser" Style="{StaticResource InputBox}" Margin="0,0,0,12"/>
+
+                <!-- Geslo + potrditev -->
+                <Grid Margin="0,0,0,22">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/><ColumnDefinition Width="10"/><ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0">
+                        <TextBlock Text="Geslo *" Style="{StaticResource FieldLabel}"/>
+                        <PasswordBox x:Name="TxtPass" Style="{StaticResource InputPassword}"/>
+                    </StackPanel>
+                    <StackPanel Grid.Column="2">
+                        <TextBlock Text="Potrdi *" Style="{StaticResource FieldLabel}"/>
+                        <PasswordBox x:Name="TxtConf" Style="{StaticResource InputPassword}"/>
+                    </StackPanel>
+                </Grid>
+
+                <Button Content="Ustvari račun" Style="{StaticResource SuccessButton}"
+                        Margin="0,0,0,10" Click="BtnRegister_Click"/>
+                <Button Content="Nazaj na prijavo" Style="{StaticResource SecondaryButton}"
+                        Click="BtnBack_Click"/>
+            </StackPanel>
+        </Grid>
+    </ScrollViewer>
+</Window>

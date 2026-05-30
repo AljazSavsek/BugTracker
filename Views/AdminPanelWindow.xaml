@@ -1,0 +1,258 @@
+<Window x:Class="BugTracker.Views.AdminPanelWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Admin Panel" Height="600" Width="960"
+        WindowStartupLocation="CenterOwner"
+        MinHeight="480" MinWidth="720"
+        Background="{StaticResource LightBrush}">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="180"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- ══ SIDEBAR ══════════════════════════════════════════════ -->
+        <Border Grid.Column="0" Background="{StaticResource SidebarBrush}">
+            <StackPanel Margin="0,16,0,0">
+                <TextBlock Text="Admin panel" FontSize="14" FontWeight="Bold"
+                           Foreground="White" Margin="16,0,0,16"/>
+                <Border x:Name="TabU" Tag="U" Cursor="Hand"
+                        Background="{StaticResource AccentBrush}"
+                        MouseLeftButtonDown="Tab_Click">
+                    <TextBlock Text="👥  Uporabniki" Foreground="White"
+                               FontWeight="SemiBold" FontSize="13" Padding="16,12"/>
+                </Border>
+                <Border x:Name="TabK" Tag="K" Cursor="Hand"
+                        Background="Transparent"
+                        MouseLeftButtonDown="Tab_Click">
+                    <TextBlock Text="🏷️  Kategorije" Foreground="#BDC3C7"
+                               FontSize="13" Padding="16,12"/>
+                </Border>
+                <Border x:Name="TabS" Tag="S" Cursor="Hand"
+                        Background="Transparent"
+                        MouseLeftButtonDown="Tab_Click">
+                    <TextBlock Text="📊  Statistika" Foreground="#BDC3C7"
+                               FontSize="13" Padding="16,12"/>
+                </Border>
+                <Border x:Name="TabN" Tag="N" Cursor="Hand"
+                        Background="Transparent"
+                        MouseLeftButtonDown="Tab_Click">
+                    <TextBlock Text="⚙️  Nastavitve" Foreground="#BDC3C7"
+                               FontSize="13" Padding="16,12"/>
+                </Border>
+            </StackPanel>
+        </Border>
+
+        <!-- ══ VSEBINA ══════════════════════════════════════════════ -->
+        <Grid Grid.Column="1" Margin="24,20,24,20">
+
+            <!-- ── UPORABNIKI ─────────────────────────────────────── -->
+            <Grid x:Name="PanelU">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="12"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="12"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <TextBlock Text="Upravljanje uporabnikov" FontSize="18"
+                               FontWeight="Bold" Foreground="{StaticResource PrimaryBrush}"
+                               VerticalAlignment="Center"/>
+                    <Button Content="+ Dodaj uporabnika"
+                            Style="{StaticResource PrimaryButton}"
+                            HorizontalAlignment="Right" Padding="16,8"
+                            Click="BtnDodajUser_Click"/>
+                </Grid>
+                <DataGrid Grid.Row="2" x:Name="GridUsers"
+                          AutoGenerateColumns="False" IsReadOnly="True"
+                          CanUserResizeRows="False" GridLinesVisibility="Horizontal"
+                          HeadersVisibility="Column" Background="White"
+                          AlternatingRowBackground="#F8F9FA"
+                          BorderBrush="#D0D7DE" BorderThickness="1"
+                          FontSize="13" RowHeight="36" SelectionMode="Single">
+                    <DataGrid.ColumnHeaderStyle>
+                        <Style TargetType="DataGridColumnHeader"
+                               BasedOn="{StaticResource GridHeader}"/>
+                    </DataGrid.ColumnHeaderStyle>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Ime in priimek" Binding="{Binding ImeInPriimek}" Width="*"/>
+                        <DataGridTextColumn Header="Username"       Binding="{Binding UporabniskoIme}" Width="110"/>
+                        <DataGridTextColumn Header="Vloga"          Binding="{Binding Vloga}"          Width="90"/>
+                        <DataGridTextColumn Header="E-mail"         Binding="{Binding Email}"          Width="170"/>
+                        <DataGridTextColumn Header="Status"         Binding="{Binding AktivenText}"    Width="80"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+                <StackPanel Grid.Row="4" Orientation="Horizontal"
+                            HorizontalAlignment="Right">
+                    <Button Content="✏️ Uredi"
+                            Style="{StaticResource PrimaryButton}"
+                            Padding="14,8" Margin="0,0,10,0"
+                            Click="BtnUrediUser_Click"/>
+                    <Button Content="🔑 Reset gesla"
+                            Style="{StaticResource PrimaryButton}"
+                            Background="{StaticResource WarnBrush}"
+                            Padding="14,8" Margin="0,0,10,0"
+                            Click="BtnResetPass_Click"/>
+                    <Button Content="⊘ Preklopi aktiven"
+                            Style="{StaticResource DangerButton}"
+                            Padding="14,8"
+                            Click="BtnToggle_Click"/>
+                </StackPanel>
+            </Grid>
+
+            <!-- ── KATEGORIJE ─────────────────────────────────────── -->
+            <Grid x:Name="PanelK" Visibility="Collapsed">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="12"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="12"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <TextBlock Text="Upravljanje kategorij" FontSize="18"
+                               FontWeight="Bold" Foreground="{StaticResource PrimaryBrush}"
+                               VerticalAlignment="Center"/>
+                    <Button Content="+ Dodaj kategorijo"
+                            Style="{StaticResource PrimaryButton}"
+                            HorizontalAlignment="Right" Padding="16,8"
+                            Click="BtnDodajKat_Click"/>
+                </Grid>
+                <DataGrid Grid.Row="2" x:Name="GridKat"
+                          AutoGenerateColumns="False" IsReadOnly="True"
+                          CanUserResizeRows="False" GridLinesVisibility="Horizontal"
+                          HeadersVisibility="Column" Background="White"
+                          AlternatingRowBackground="#F8F9FA"
+                          BorderBrush="#D0D7DE" BorderThickness="1"
+                          FontSize="13" RowHeight="36" SelectionMode="Single">
+                    <DataGrid.ColumnHeaderStyle>
+                        <Style TargetType="DataGridColumnHeader"
+                               BasedOn="{StaticResource GridHeader}"/>
+                    </DataGrid.ColumnHeaderStyle>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Naziv"     Binding="{Binding Naziv}"   Width="150"/>
+                        <DataGridTextColumn Header="Opis"      Binding="{Binding Opis}"    Width="*"/>
+                        <DataGridTextColumn Header="Št. napak" Binding="{Binding StNapak}" Width="80"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+                <StackPanel Grid.Row="4" Orientation="Horizontal"
+                            HorizontalAlignment="Right">
+                    <Button Content="✏️ Uredi"
+                            Style="{StaticResource PrimaryButton}"
+                            Padding="14,8" Margin="0,0,10,0"
+                            Click="BtnUrediKat_Click"/>
+                    <Button Content="🗑 Izbriši"
+                            Style="{StaticResource DangerButton}"
+                            Padding="14,8" Click="BtnIzbrisiKat_Click"/>
+                </StackPanel>
+            </Grid>
+
+            <!-- ── STATISTIKA ─────────────────────────────────────── -->
+            <Grid x:Name="PanelS" Visibility="Collapsed">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" Text="Statistika sistema" FontSize="18"
+                           FontWeight="Bold" Foreground="{StaticResource PrimaryBrush}"/>
+                <UniformGrid Grid.Row="2" Columns="4">
+                    <Border Style="{StaticResource Card}" Margin="0,0,10,0">
+                        <StackPanel HorizontalAlignment="Center">
+                            <TextBlock x:Name="SC_Tot"  Text="–" FontSize="36" FontWeight="Bold"
+                                       Foreground="{StaticResource AccentBrush}"  HorizontalAlignment="Center"/>
+                            <TextBlock Text="Skupaj" FontSize="12" HorizontalAlignment="Center"
+                                       Foreground="{StaticResource MutedBrush}"/>
+                        </StackPanel>
+                    </Border>
+                    <Border Style="{StaticResource Card}" Margin="0,0,10,0">
+                        <StackPanel HorizontalAlignment="Center">
+                            <TextBlock x:Name="SC_Odp" Text="–" FontSize="36" FontWeight="Bold"
+                                       Foreground="{StaticResource DangerBrush}"  HorizontalAlignment="Center"/>
+                            <TextBlock Text="Odprtih" FontSize="12" HorizontalAlignment="Center"
+                                       Foreground="{StaticResource MutedBrush}"/>
+                        </StackPanel>
+                    </Border>
+                    <Border Style="{StaticResource Card}" Margin="0,0,10,0">
+                        <StackPanel HorizontalAlignment="Center">
+                            <TextBlock x:Name="SC_Del" Text="–" FontSize="36" FontWeight="Bold"
+                                       Foreground="{StaticResource WarnBrush}"    HorizontalAlignment="Center"/>
+                            <TextBlock Text="V delu" FontSize="12" HorizontalAlignment="Center"
+                                       Foreground="{StaticResource MutedBrush}"/>
+                        </StackPanel>
+                    </Border>
+                    <Border Style="{StaticResource Card}">
+                        <StackPanel HorizontalAlignment="Center">
+                            <TextBlock x:Name="SC_Res" Text="–" FontSize="36" FontWeight="Bold"
+                                       Foreground="{StaticResource SuccessBrush}" HorizontalAlignment="Center"/>
+                            <TextBlock Text="Rešenih" FontSize="12" HorizontalAlignment="Center"
+                                       Foreground="{StaticResource MutedBrush}"/>
+                        </StackPanel>
+                    </Border>
+                </UniformGrid>
+                <UniformGrid Grid.Row="4" Columns="3">
+                    <Border Style="{StaticResource Card}" Margin="0,0,10,0">
+                        <StackPanel HorizontalAlignment="Center">
+                            <TextBlock x:Name="SC_Usr" Text="–" FontSize="30" FontWeight="Bold"
+                                       Foreground="{StaticResource PrimaryBrush}" HorizontalAlignment="Center"/>
+                            <TextBlock Text="Skupaj users" FontSize="12" HorizontalAlignment="Center"
+                                       Foreground="{StaticResource MutedBrush}"/>
+                        </StackPanel>
+                    </Border>
+                    <Border Style="{StaticResource Card}" Margin="0,0,10,0">
+                        <StackPanel HorizontalAlignment="Center">
+                            <TextBlock x:Name="SC_Akt" Text="–" FontSize="30" FontWeight="Bold"
+                                       Foreground="{StaticResource SuccessBrush}" HorizontalAlignment="Center"/>
+                            <TextBlock Text="Aktivnih" FontSize="12" HorizontalAlignment="Center"
+                                       Foreground="{StaticResource MutedBrush}"/>
+                        </StackPanel>
+                    </Border>
+                    <Border Style="{StaticResource Card}">
+                        <StackPanel HorizontalAlignment="Center">
+                            <TextBlock x:Name="SC_Zap" Text="–" FontSize="30" FontWeight="Bold"
+                                       Foreground="{StaticResource MutedBrush}"   HorizontalAlignment="Center"/>
+                            <TextBlock Text="Zaprtih napak" FontSize="12" HorizontalAlignment="Center"
+                                       Foreground="{StaticResource MutedBrush}"/>
+                        </StackPanel>
+                    </Border>
+                </UniformGrid>
+            </Grid>
+
+            <!-- ── NASTAVITVE ─────────────────────────────────────── -->
+            <StackPanel x:Name="PanelN" Visibility="Collapsed">
+                <TextBlock Text="Sistemske nastavitve" FontSize="18"
+                           FontWeight="Bold" Foreground="{StaticResource PrimaryBrush}"
+                           Margin="0,0,0,20"/>
+                <Border Style="{StaticResource Card}" Margin="0,0,0,16">
+                    <StackPanel>
+                        <TextBlock Text="Sprememba gesla (vaš račun)" FontWeight="Bold"
+                                   FontSize="14" Foreground="{StaticResource PrimaryBrush}"
+                                   Margin="0,0,0,12"/>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/><ColumnDefinition Width="12"/>
+                                <ColumnDefinition/><ColumnDefinition Width="12"/>
+                                <ColumnDefinition Width="110"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Grid.Column="0">
+                                <TextBlock Text="Novo geslo" Style="{StaticResource FieldLabel}"/>
+                                <PasswordBox x:Name="TxtNew" Style="{StaticResource InputPassword}"/>
+                            </StackPanel>
+                            <StackPanel Grid.Column="2">
+                                <TextBlock Text="Potrdi geslo" Style="{StaticResource FieldLabel}"/>
+                                <PasswordBox x:Name="TxtConf" Style="{StaticResource InputPassword}"/>
+                            </StackPanel>
+                            <Button Grid.Column="4" Content="Nastavi"
+                                    Style="{StaticResource PrimaryButton}"
+                                    Padding="0,8" VerticalAlignment="Bottom"
+                                    Click="BtnSetPass_Click"/>
+                        </Grid>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>
